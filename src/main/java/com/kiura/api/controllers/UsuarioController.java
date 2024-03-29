@@ -94,13 +94,6 @@ public class UsuarioController {
         }
     }
 
-    @GetMapping("/buscar-por-token")
-    @Secured({ "ADMIN", "NORMAL" })
-    public ResponseEntity<UsuarioResponseDto> obtenerUsuarioPorToken(@RequestHeader("Authorization") String token) {
-        UsuarioResponseDto usuario = usuarioService.buscarUsuarioPorToken(token);
-        return new ResponseEntity<>(usuario, HttpStatus.OK);
-    }
-
     @PutMapping("/aprobar-profesional/{id}")
     @Secured("SOPORTE")
     public ResponseEntity<?> aprobarProfesional(@PathVariable Long id) {

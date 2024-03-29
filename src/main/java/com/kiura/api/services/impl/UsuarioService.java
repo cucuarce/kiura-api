@@ -166,23 +166,6 @@ public class UsuarioService implements IService<UsuarioResponseDto, UsuarioReque
 
     }
 
-    public UsuarioResponseDto buscarUsuarioPorToken(String token) {
-
-        // Decodificar el token JWT
-        Claims claims = Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(token.replace("Bearer ", ""))
-                .getBody();
-
-        // Extraer el correo electrónico del usuario desde las reclamaciones del token
-        String email = claims.getSubject();
-
-        // Buscar al usuario por correo electrónico en la base de datos
-        Usuario usuario = usuarioRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("El usuario no existe", HttpStatus.NOT_FOUND.value()));
-
-        return objectMapper.convertValue(usuario, UsuarioResponseDto.class);
-    }
-
     public void actualizarPromedioPuntuacion(Usuario usuario) {
         Long usuarioId = usuario.getId();
         List<Valoracion> valoraciones = valoracionRepository.findByUsuarioProfesionalId(usuarioId);

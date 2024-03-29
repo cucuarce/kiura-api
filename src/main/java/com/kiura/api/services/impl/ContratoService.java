@@ -131,18 +131,7 @@ public class ContratoService implements IService<ContratoResponseDto, ContratoRe
                 .collect(Collectors.toList());
 
     }
-
-    /*public List<ContratoResponseDto> obtenerContratosPorProfesional(Long usuarioId) {
-
-        usuarioService.buscarPorId(usuarioId);
-
-        List<Contrato> contratos =  Optional.of(contratoRepository.findContratosByUsuarioId(usuarioId)).orElseThrow(() -> new ResourceNotFoundException("No hay contratos registrados para ese usuario", HttpStatus.NOT_FOUND.value()));
-        return contratos
-                .stream()
-                .map(reserva -> objectMapper.convertValue(reserva, ContratoResponseDto.class))
-                .collect(Collectors.toList());
-
-    }*/
+    
 
     private void validarSiExisteContratoPrevio(ContratoRequestDto contratoRequestDto){
 
@@ -161,25 +150,11 @@ public class ContratoService implements IService<ContratoResponseDto, ContratoRe
         }
     }
 
-    /*public boolean isConcluida(Contrato contrato) {
-        LocalDate today = LocalDate.now();
-        return contrato.getFechaFin() != null && contrato.getFechaFin().isBefore(today);
-    }
 
-    public List<Contrato> obtenerContratosConcluidosPorUsuario(Long usuarioId) {
-        List<Contrato> contratos = contratoRepository.findContratosByUsuarioId(usuarioId);
-        System.out.println("Los contratos del usuario son: " + contratos);
-        return contratos.stream()
-                .filter(this::isConcluida)
-                .collect(Collectors.toList());
-    }*/
-    ////////////////////////////////////////////////////////////////////////////////////////////////
-    // Método para obtener las solicitudes de contratación pendientes para un profesional específico
     public List<Contrato> obtenerSolicitudesPendientes(Long idProfesional) {
         return contratoRepository.findSolicitudesPendientesByProfesionalId(idProfesional, Estado.PENDIENTE);
     }
 
-    // Método para confirmar una solicitud de contratación
     public void confirmarSolicitudContratacion(Long idContrato) {
         Contrato contrato = contratoRepository.findById(idContrato)
                 .orElseThrow(() -> new NotFoundException("Contrato no encontrado con ID: " + idContrato));
@@ -187,7 +162,6 @@ public class ContratoService implements IService<ContratoResponseDto, ContratoRe
         contratoRepository.save(contrato);
     }
 
-    // Método para rechazar una solicitud de contratación
     public void rechazarSolicitudContratacion(Long idContrato) {
         Contrato contrato = contratoRepository.findById(idContrato)
                 .orElseThrow(() -> new NotFoundException("Contrato no encontrado con ID: " + idContrato));
