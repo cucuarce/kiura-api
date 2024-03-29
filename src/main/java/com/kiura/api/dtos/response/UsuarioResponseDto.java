@@ -1,5 +1,6 @@
 package com.kiura.api.dtos.response;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.kiura.api.entities.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,11 +22,17 @@ public class UsuarioResponseDto {
     private String certificadosEstudios;
     private CategoriaResponseDto categoria;
 
+    @JsonIgnore
     private List<Valoracion> valoraciones;
+    @JsonIgnore
     private Double promedioPuntuacion;
+    @JsonIgnore
     private Long cantidadValoraciones;
+    @JsonIgnore
     private List<Contrato> contratosComoUsuarioNormal;
+    @JsonIgnore
     private List<Contrato> contratosComoUsuarioProfesional;
+    @JsonIgnore
     private Estado estadoAprobacion;
 
 }

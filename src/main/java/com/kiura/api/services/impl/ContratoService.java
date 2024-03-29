@@ -131,7 +131,7 @@ public class ContratoService implements IService<ContratoResponseDto, ContratoRe
                 .collect(Collectors.toList());
 
     }
-    
+
 
     private void validarSiExisteContratoPrevio(ContratoRequestDto contratoRequestDto){
 
